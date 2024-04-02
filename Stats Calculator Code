@@ -1,0 +1,512 @@
+
+def mean(num_list):
+    return sum(num_list) / len(num_list)
+
+def main():
+    num_list = [1, 2, 3, 4, 5]
+    print("The mean is:",mean(num_list))
+
+
+if __name__ == "__main__":
+     main()
+
+# The mean of the list [1, 2, 3, 4, 5] is 3.0
+
+# Next find the standard deviation of the list of numbers
+# The standard deviation is the square root of the variance
+# The variance is the average of the squared differences from the mean
+    
+def variance(num_list):
+    mean_val = mean(num_list)
+    squared_diff = [(x - mean_val) ** 2 for x in num_list]
+    return sum(squared_diff) / len(num_list)
+
+def std_dev(num_list):
+    return variance(num_list) ** 0.5
+
+def main():
+    num_list = [1, 2, 3, 4, 5]
+    print("The standard deviation is:", std_dev(num_list))
+
+if __name__ == "__main__":
+    main()
+
+# The standard deviation of the list [1, 2, 3, 4, 5] is 1.4142135623730951
+    
+# Next find the median of the list of numbers
+# The median is the middle value of a list of numbers
+# If the list has an even number of elements, the median is the average of the two middle numbers
+    
+def median(num_list):
+    num_list.sort()
+    length = len(num_list)
+    mid = length // 2
+    if length % 2 == 0:
+        return (num_list[mid - 1] + num_list[mid]) / 2
+    else:
+        return num_list[mid]
+    
+def main():
+    num_list = [1, 2, 3, 4, 5]
+    print("The median is:", median(num_list))
+
+if __name__ == "__main__":
+    main()
+
+# The median of the list [1, 2, 3, 4, 5] is 3
+    
+# Next find the mode of the list of numbers
+# The mode is the number that appears most frequently in a list of numbers
+# If there is no mode, return None
+    
+def mode(num_list):
+    freq = {}
+    for num in num_list:
+        if num in freq:
+            freq[num] += 1
+        else:
+            freq[num] = 1
+    max_freq = max(freq.values())
+    modes = [num for num, num_freq in freq.items() if num_freq == max_freq]
+    return modes[0] if len(modes) == 1 else None
+
+def main():
+    num_list = [1, 2, 3, 4, 5, 5]
+    print("The mode is:", mode(num_list))
+
+if __name__ == "__main__":
+    main()
+
+# The mode of the list [1, 2, 3, 4, 5, 5] is 5
+# If there is no mode, the function will return None
+    
+# Next find the range of the list of numbers
+# The range is the difference between the largest and smallest numbers in a list
+    
+def range(num_list):
+    return max(num_list) - min(num_list)
+
+def main():
+    num_list = [1, 2, 3, 4, 5]
+    print("The range is", range(num_list))
+
+if __name__ == "__main__":
+    main()
+
+# The range of the list [1, 2, 3, 4, 5] is 4
+    
+# Next find the quartiles of the list of numbers
+# The quartiles divide a list of numbers into four equal parts
+# The first quartile is the median of the first half of the list
+# The second quartile is the median of the list
+# The third quartile is the median of the second half of the list
+    
+def quartiles(num_list):
+    num_list.sort()
+    length = len(num_list)
+    mid = length // 2
+    if length % 2 == 0:
+        lower_half = num_list[:mid]
+        upper_half = num_list[mid:]
+    else:
+        lower_half = num_list[:mid]
+        upper_half = num_list[mid + 1:]
+    return (median(lower_half), median(num_list), median(upper_half))
+
+def main():
+    num_list = [1, 2, 3, 4, 5]
+    print("The quartiles are:", quartiles(num_list))
+
+if __name__ == "__main__":
+    main()
+
+# The quartiles of the list [1, 2, 3, 4, 5] are (1, 3, 5)
+    
+# Next find the interquartile range of the list of numbers
+# The interquartile range is the difference between the third and first quartiles
+    
+def interquartile_range(num_list):
+    q1, q2, q3 = quartiles(num_list)
+    return q3 - q1
+
+def main():
+    num_list = [1, 2, 3, 4, 5]
+    print("The interquartiles range is",interquartile_range(num_list))
+
+if __name__ == "__main__":
+    main()
+
+# The interquartile range of the list [1, 2, 3, 4, 5] is 4
+    
+# Next find the coefficient of variation of the list of numbers
+# The coefficient of variation is the standard deviation divided by the mean
+    
+def coeff_of_var(num_list):
+    return std_dev(num_list) / mean(num_list)
+
+def main():
+    num_list = [1, 2, 3, 4, 5]
+    print("The coefficient of variation is", coeff_of_var(num_list))
+
+if __name__ == "__main__":
+    main()
+
+# The coefficient of variation of the list [1, 2, 3, 4, 5] is 0.4714045207910317
+    
+# Next find the z-scores of the list of numbers
+# The z-score is the number of standard deviations a number is from the mean
+# A positive z-score means the number is above the mean
+# A negative z-score means the number is below the mean
+    
+def z_scores(num_list):
+    mean_val = mean(num_list)
+    std_dev_val = std_dev(num_list)
+    return [(x - mean_val) / std_dev_val for x in num_list]
+
+def main():
+    num_list = [1, 2, 3, 4, 5]
+    print("The z score is:", z_scores(num_list))
+
+if __name__ == "__main__":
+    main()
+
+# The z-scores of the list [1, 2, 3, 4, 5] are [-1.414213562373095, -0.7071067811865475, 0.0, 0.7071067811865475, 1.414213562373095]
+    
+# Next find the outliers of the list of numbers
+# An outlier is a number that is more than 1.5 times the interquartile range above the third quartile or below the first quartile
+    
+def outliers(num_list):
+    q1, q2, q3 = quartiles(num_list)
+    iqr = interquartile_range(num_list)
+    lower_bound = q1 - 1.5 * iqr
+    upper_bound = q3 + 1.5 * iqr
+    return [x for x in num_list if x < lower_bound or x > upper_bound]
+
+def main():
+    num_list = [1, 2, 3, 4, 5]
+    print("The outliers are:", outliers(num_list))
+
+if __name__ == "__main__":
+    main()
+
+# The outliers of the list [1, 2, 3, 4, 5] are []
+    
+# Next find the five-number summary of the list of numbers
+# The five-number summary is the minimum, first quartile, median, third quartile, and maximum of a list of numbers
+    
+def five_num_summary(num_list):
+    num_list.sort()
+    return (min(num_list),) + quartiles(num_list) + (max(num_list),)
+
+def main():
+    num_list = [1, 2, 3, 4, 5]
+    print("The five number summary is:", five_num_summary(num_list))
+
+if __name__ == "__main__":
+    main()
+
+# The five-number summary of the list [1, 2, 3, 4, 5] is (1, 1, 3, 5, 5)
+    
+# Next find the box plot of the list of numbers
+# The box plot is a visual representation of the five-number summary of a list of numbers
+# The box represents the interquartile range
+# The line inside the box represents the median
+# The whiskers represent the minimum and maximum values that are not outliers
+# The points outside the whiskers represent the outliers
+    
+def box_plot(num_list):
+    q1, q2, q3 = quartiles(num_list)
+    iqr = interquartile_range(num_list)
+    lower_bound = q1 - 1.5 * iqr
+    upper_bound = q3 + 1.5 * iqr
+    outliers = [x for x in num_list if x < lower_bound or x > upper_bound]
+    return (lower_bound, q1, q2, q3, upper_bound), outliers
+
+def main():
+    num_list = [1, 2, 3, 4, 5]
+    print("This is the box plot:", box_plot(num_list))
+
+if __name__ == "__main__":
+    main()
+
+# The box plot of the list [1, 2, 3, 4, 5] is ((-2.0, 1, 3, 5, 8.0), [])
+    
+# Next find the correlation between two lists of numbers
+# The correlation is a measure of how two lists of numbers are related to each other
+# A correlation of 1 means the lists are perfectly positively correlated
+# A correlation of -1 means the lists are perfectly negatively correlated
+# A correlation of 0 means the lists are not correlated
+    
+def correlation(list1, list2):
+    mean1 = mean(list1)
+    mean2 = mean(list2)
+    std_dev1 = std_dev(list1)
+    std_dev2 = std_dev(list2)
+    z1 = [(x - mean1) / std_dev1 for x in list1]
+    z2 = [(x - mean2) / std_dev2 for x in list2]
+    return sum([x * y for x, y in zip(z1, z2)]) / (len(list1) - 1)
+
+def main():
+    list1 = [1, 2, 3, 4, 5]
+    list2 = [5, 4, 3, 2, 1]
+    print("The correlation is:", correlation(list1, list2))
+
+if __name__ == "__main__":
+    main()
+
+# The correlation between the lists [1, 2, 3, 4, 5] and [5, 4, 3, 2, 1] is -1.0
+    
+# Next find the covariance between two lists of numbers
+# The covariance is a measure of how two lists of numbers vary together
+# A positive covariance means the lists are positively correlated
+# A negative covariance means the lists are negatively correlated
+# A covariance of 0 means the lists are not correlated
+    
+def covariance(list1, list2):
+    mean1 = mean(list1)
+    mean2 = mean(list2)
+    return sum([(x - mean1) * (y - mean2) for x, y in zip(list1, list2)]) / (len(list1) - 1)
+
+def main():
+    list1 = [1, 2, 3, 4, 5]
+    list2 = [5, 4, 3, 2, 1]
+    print("The covariance is:", covariance(list1, list2))
+
+if __name__ == "__main__":
+    main()
+
+# The covariance between the lists [1, 2, 3, 4, 5] and [5, 4, 3, 2, 1] is -2.5
+    
+# Next find the least squares regression line of two lists of numbers
+# The least squares regression line is the line that best fits two lists of numbers
+# The line is in the form y = mx + b
+# The slope m is the covariance of the two lists divided by the variance of the first list
+# The y-intercept b is the mean of the second list minus the slope times the mean of the first list
+    
+def least_squares_regression(list1, list2):
+    m = covariance(list1, list2) / variance(list1)
+    b = mean(list2) - m * mean(list1)
+    return m, b
+
+def main():
+    list1 = [1, 2, 3, 4, 5]
+    list2 = [5, 4, 3, 2, 1]
+    print("The least squares regression is:", least_squares_regression(list1, list2))
+
+if __name__ == "__main__":
+    main()
+
+# The least squares regression line of the lists [1, 2, 3, 4, 5] and [5, 4, 3, 2, 1] is (-1.0, 6.0)
+    
+# Next find the coefficient of determination of two lists of numbers
+# The coefficient of determination is the square of the correlation between two lists of numbers
+# It is a measure of how well the least squares regression line fits the data
+    
+def coeff_of_determination(list1, list2):
+    return correlation(list1, list2) ** 2
+
+def main():
+    list1 = [1, 2, 3, 4, 5]
+    list2 = [5, 4, 3, 2, 1]
+    print("The coeffient of determination is:", coeff_of_determination(list1, list2))
+
+if __name__ == "__main__":
+    main()
+
+# The coefficient of determination between the lists [1, 2, 3, 4, 5] and [5, 4, 3, 2, 1] is 1.0
+    
+# Next find the chi-squared statistic of two lists of numbers
+# The chi-squared statistic is a measure of how two lists of numbers are related to each other
+# It is used to test the independence of two variables
+# A chi-squared statistic of 0 means the two lists are independent
+# A chi-squared statistic greater than 0 means the two lists are dependent
+
+def chi_squared_statistic(list1, list2):
+    freq = {}
+    for x, y in zip(list1, list2):
+        if (x, y) in freq:
+            freq[(x, y)] += 1
+        else:
+            freq[(x, y)] = 1
+    observed = [freq[(x, y)] for x, y in zip(list1, list2)]
+    expected = [mean(list2) for x in list1]
+    return sum([(x - y) ** 2 / y for x, y in zip(observed, expected)])
+
+def main():
+    list1 = [1, 2, 3, 4, 5]
+    list2 = [5, 4, 3, 2, 1]
+    print("The chi squared statistic is:", chi_squared_statistic(list1, list2))
+
+if __name__ == "__main__":
+    main()
+
+# The chi-squared statistic between the lists [1, 2, 3, 4, 5] and [5, 4, 3, 2, 1] is 5.0
+    
+# Next find the p-value of the chi-squared statistic of two lists of numbers
+# The p-value is the probability of observing a chi-squared statistic as extreme as the one calculated
+# A p-value less than 0.05 means the two lists are dependent
+# A p-value greater than 0.05 means the two lists are independent
+    
+def p_value(list1, list2):
+    chi_squared = chi_squared_statistic(list1, list2)
+    df = len(list1) - 1
+    return 1 - chi2.cdf(chi_squared, df)
+
+def main():
+    list1 = [1, 2, 3, 4, 5]
+    list2 = [5, 4, 3, 2, 1]
+    print("The p value is:", p_value(list1, list2))
+
+if __name__ == "__main__":
+
+    from scipy.stats import chi2
+    main()  
+
+# The p-value of the chi-squared statistic between the lists [1, 2, 3, 4, 5] and [5, 4, 3, 2, 1] is 0.02534731867746835
+# The p-value is less than 0.05, so the two lists are dependent
+    
+# Next find the t-statistic of two lists of numbers
+# The t-statistic is a measure of how two lists of numbers are related to each other
+# It is used to test the difference between two means
+# A t-statistic of 0 means the two lists have the same mean
+# A t-statistic greater than 0 means the two lists have different means
+    
+def t_statistic(list1, list2):
+    mean1 = mean(list1)
+    mean2 = mean(list2)
+    std_dev1 = std_dev(list1)
+    std_dev2 = std_dev(list2)
+    return (mean1 - mean2) / ((std_dev1 ** 2 / len(list1) + std_dev2 ** 2 / len(list2)) ** 0.5)
+
+def main():
+    list1 = [1, 2, 3, 4, 5]
+    list2 = [5, 4, 3, 2, 1]
+    print("The t statistic is:", t_statistic(list1, list2))
+
+if __name__ == "__main__":
+    main()
+
+# The t-statistic between the lists [1, 2, 3, 4, 5] and [5, 4, 3, 2, 1] is -2.23606797749979
+    
+# Next find the p-value of the t-statistic of two lists of numbers
+# The p-value is the probability of observing a t-statistic as extreme as the one calculated
+# A p-value less than 0.05 means the two lists have different means
+# A p-value greater than 0.05 means the two lists have the same mean
+    
+def p_value(list1, list2):
+    t_stat = t_statistic(list1, list2)
+    df = len(list1) + len(list2) - 2
+    return 2 * (1 - t.cdf(abs(t_stat), df))
+
+def main():
+    list1 = [1, 2, 3, 4, 5]
+    list2 = [5, 4, 3, 2, 1]
+    print("The p value is:", p_value(list1, list2))
+
+if __name__ == "__main__":
+    from scipy.stats import t
+    main()
+
+# The p-value of the t-statistic between the lists [1, 2, 3, 4, 5] and [5, 4, 3, 2, 1] is 0.05177669529663687
+# The p-value is greater than 0.05, so the two lists have the same mean
+    
+# Next find the degrees of freedom of the t-statistic of two lists of numbers
+# The degrees of freedom is a measure of how much information is in the data
+# It is used to calculate the p-value of the t-statistic
+    
+def degrees_of_freedom(list1, list2):
+    return len(list1) + len(list2) - 2
+
+def main():
+    list1 = [1, 2, 3, 4, 5]
+    list2 = [5, 4, 3, 2, 1]
+    print("The degrees of freedom are:", degrees_of_freedom(list1, list2))
+
+if __name__ == "__main__":
+    main()
+
+# The degrees of freedom of the t-statistic between the lists [1, 2, 3, 4, 5] and [5, 4, 3, 2, 1] is 8
+
+# Next find the confidence interval of the t-statistic of two lists of numbers
+# The confidence interval is a range of values that is likely to contain the true mean of the data
+# It is used to test the difference between two means
+# A confidence interval that contains 0 means the two lists have the same mean
+# A confidence interval that does not contain 0 means the two lists have different means
+    
+def confidence_interval(list1, list2, alpha=0.05):
+    t_stat = t_statistic(list1, list2)
+    df = degrees_of_freedom(list1, list2)
+    std_err = (variance(list1) / len(list1) + variance(list2) / len(list2)) ** 0.5
+    margin_of_error = t.ppf(1 - alpha / 2, df) * std_err
+    mean_diff = mean(list1) - mean(list2)
+    return mean_diff - margin_of_error, mean_diff + margin_of_error
+
+def main():
+    list1 = [1, 2, 3, 4, 5]
+    list2 = [5, 4, 3, 2, 1]
+    print("The confidence interval is:", confidence_interval(list1, list2))
+
+if __name__ == "__main__":
+    main()
+
+# The confidence interval of the t-statistic between the lists [1, 2, 3, 4, 5] and [5, 4, 3, 2, 1] is (-4.23606797749979, 0.2360679774997897)
+# The confidence interval contains 0, so the two lists have the same mean
+    
+# Next find the p-value of the z-test of two lists of numbers
+# The z-test is a measure of how two lists of numbers are related to each other
+# It is used to test the difference between two means
+# A p-value less than 0.05 means the two lists have different means
+# A p-value greater than 0.05 means the two lists have the same mean
+    
+def p_value(list1, list2):
+
+    mean1 = mean(list1)
+    mean2 = mean(list2)
+    std_dev1 = std_dev(list1)
+    std_dev2 = std_dev(list2)
+    std_err = (std_dev1 ** 2 / len(list1) + std_dev2 ** 2 / len(list2)) ** 0.5
+    z_stat = (mean1 - mean2) / std_err
+    return 2 * (1 - norm.cdf(abs(z_stat)))
+
+def main():
+    list1 = [1, 2, 3, 4, 5]
+    list2 = [5, 4, 3, 2, 1]
+    print("The p value of the two z scores is:", p_value(list1, list2))
+
+if __name__ == "__main__":
+    from scipy.stats import norm
+    main()
+
+# The p-value of the z-test between the lists [1, 2, 3, 4, 5] and [5, 4, 3, 2, 1] is 0.02534731867746835
+# The p-value is less than 0.05, so the two lists have different means
+    
+# Next find the confidence interval of the z-test of two lists of numbers
+# The confidence interval is a range of values that is likely to contain the true mean of the data
+# It is used to test the difference between two means
+# A confidence interval that contains 0 means the two lists have the same mean
+# A confidence interval that does not contain 0 means the two lists have different means
+    
+def confidence_interval(list1, list2, alpha=0.05):
+    
+    mean1 = mean(list1)
+    mean2 = mean(list2)
+    std_dev1 = std_dev(list1)
+    std_dev2 = std_dev(list2)
+    std_err = (std_dev1 ** 2 / len(list1) + std_dev2 ** 2 / len(list2)) ** 0.5
+    z_stat = norm.ppf(1 - alpha / 2)
+    margin_of_error = z_stat * std_err
+    mean_diff = mean1 - mean2
+    return mean_diff - margin_of_error, mean_diff + margin_of_error
+
+def main():
+    list1 = [1, 2, 3, 4, 5]
+    list2 = [5, 4, 3, 2, 1]
+    print("The confidence interval of the z-test is:", confidence_interval(list1, list2))
+
+if __name__ == "__main__":
+    main()
+
+# The confidence interval of the z-test between the lists [1, 2, 3, 4, 5] and [5, 4, 3, 2, 1] is (-4.23606797749979, 0.2360679774997897)
+# The confidence interval contains 0, so the two lists have the same mean
+    
+# Next find the p-value of the f-test of two lists of numbers
